@@ -1,0 +1,57 @@
+get_dynasty_landed_members  = {
+	effect = {
+        clear_variable_list = succession_dynasty_members
+        root.Dynasty = {
+            every_dynasty_member = {
+                limit = { 
+                    is_landed = yes 
+                    NOR = {
+                        has_government = republic_government
+                        has_government = theocracy_government
+                    }
+                }
+                root = {
+                    add_to_variable_list = {
+                        name = succession_dynasty_members
+                        target = prev
+                    }
+                }
+            }
+        }
+	}
+}
+
+select_next_character_from_dynasty= {
+    scope = character
+    saved_scopes = {player_char}
+	is_shown = {
+        is_landed = yes
+    }
+    effect = {
+        scope:player_char = {
+            set_player_character = PREV
+        }
+    }
+}
+
+select_random_next_character_from_dynasty = {
+    scope = character
+    saved_scopes = {player_char}
+    effect = {
+        Dynasty = {
+            random_dynasty_member = {
+                limit = {
+                    is_landed = yes
+                    
+                    NOR = {
+                        has_government = republic_government
+                        has_government = theocracy_government
+                    }
+                }
+                scope:player_char = {
+                    set_player_character = PREV
+                }
+            }
+        }
+    }
+}
