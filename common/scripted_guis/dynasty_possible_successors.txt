@@ -1,8 +1,22 @@
-get_dynasty_landed_members  = {
-	effect = {
-        clear_variable_list = succession_dynasty_members
-        root.Dynasty = {
-            every_dynasty_member = {
+get_dynasty_successors  = {
+    
+    saved_scopes = {dead_character}
+
+    effect = {
+        clear_variable_list = dynasty_successors
+        
+        set_local_variable = {
+            name = right_boundary_dynasty_list
+            value = global_var:left_boundary_dynasty_list 
+        } 
+        change_local_variable = {
+            name = right_boundary_dynasty_list 
+            add = global_var:size_boundary_dynasty_list
+        }
+
+        scope:dead_character.Dynasty = {
+            ordered_dynasty_member = {
+                
                 limit = { 
                     is_landed = yes 
                     NOR = {
@@ -10,23 +24,76 @@ get_dynasty_landed_members  = {
                         has_government = theocracy_government
                     }
                 }
+                
+                order_by = prowess
+                min = global_var:left_boundary_dynasty_list
+                max = local_var:right_boundary_dynasty_list
+                
                 root = {
                     add_to_variable_list = {
-                        name = succession_dynasty_members
+                        name = dynasty_successors
                         target = prev
                     }
                 }
             }
         }
-	}
+    }
+}
+
+clear_dynasty_successors = {
+    effect = {
+        root = {
+            clear_variable_list = dynasty_successors
+            set_global_variable = { 
+                name = left_boundary_dynasty_list 
+                value = 0
+            }
+            set_global_variable = { 
+                name = size_boundary_dynasty_list 
+                value = 50
+            }
+        }
+    }
+}
+
+next_page = {
+    effect = {
+        root = {
+            if = {
+                limit = {
+                    variable_list_size = {
+                        name = dynasty_successors
+                        value = global_var:size_boundary_dynasty_list
+                    }
+                }
+                change_global_variable = { 
+                    name = left_boundary_dynasty_list 
+                    add = global_var:size_boundary_dynasty_list
+                }
+            }
+        }
+    }
+}
+
+prev_page = {
+    effect = {
+        root = {
+            if = {
+                limit = {
+                    global_var:left_boundary_dynasty_list >= global_var:size_boundary_dynasty_list
+                }
+                change_global_variable = { 
+                    name = left_boundary_dynasty_list 
+                    subtract = global_var:size_boundary_dynasty_list
+                }
+            }
+        }
+    }
 }
 
 select_next_character_from_dynasty= {
-    scope = character
     saved_scopes = {player_char}
-	is_shown = {
-        is_landed = yes
-    }
+
     effect = {
         scope:player_char = {
             set_player_character = PREV
@@ -35,10 +102,10 @@ select_next_character_from_dynasty= {
 }
 
 select_random_next_character_from_dynasty = {
-    scope = character
     saved_scopes = {player_char}
+
     effect = {
-        Dynasty = {
+        root.Dynasty = {
             random_dynasty_member = {
                 limit = {
                     is_landed = yes

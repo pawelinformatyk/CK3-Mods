@@ -1,8 +1,9 @@
-version="1.0"
+version="1.1.0"
+picture="thumbnail.png"
 tags={
 	"Gameplay"
 	"Utilities"
 }
-name="Dynasty : Choose player"
+name="Play as Dynasty"
 supported_version="1.4.4"
-remote_file_id="2585738591"
+remote_file_id="2586140392"
