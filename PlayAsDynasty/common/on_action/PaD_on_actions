@@ -1,0 +1,13 @@
+﻿on_game_start = {
+    on_action = {
+        PaD_here_start
+    }
+}
+PaD_here_start = {
+    effect = {
+        set_global_variable = {
+	    name = PaD_is_loaded
+	    value = yes
+	}
+    }
+}
