@@ -177,23 +177,49 @@ types Lists
                     }
                 }
                 
-                # Traits and Titles
+                # Culture and religion 
                 hbox = {
                     layoutpolicy_horizontal = expanding
-
-                    # Traits 
+                    margin_right = 50
+                   
                     hbox = {
-                        layoutpolicy_horizontal = expanding
+                        # Religion
+                        icon = {
+                            name = "faith_button"
+                            size = { 35 35 }
+                            datacontext = "[Character.GetFaith]"
+                            tooltipwidget = { faith_tooltip = {} }
+                            texture = "[Faith.GetIcon]"
+                        }
 
+                        # Culture
+                        widget = {
+                            datacontext = "[Character.GetCulture]"
+                            size = { 35 35 }
+
+                            tooltipwidget = {
+                                culture_tooltip = {}
+                            }
+                            using = tooltip_se
+
+                            hbox = {
+                                layoutpolicy_horizontal = expanding
+                                icon = {
+                                    name = "culture"
+                                    texture = "gfx/interface/icons/icon_culture.dds"
+                                    size = { 35 35 }
+                                }
+
+                                text_multi = {
+                                    layoutpolicy_horizontal = expanding
+                                    autoresize = yes
+                                    text = "CULTURE_LISTS_WINDOW"
+                                }
+                            }
+                        }
                     }
-
+                    
                     expand = {}
-
-                    # Titles
-                    hbox = {
-                        layoutpolicy_horizontal = expanding
-
-                    }
                 }
                 
                 button_standard = {
@@ -205,63 +231,6 @@ types Lists
                     onclick = "[PdxGuiTriggerAllAnimations('ruler_transition_reset')]"
                     tooltip = "[Character.Custom('HeirMessageInterfaceNonRandom')]"
                 }
-
-                # Culture and religion 
-                # vbox = {
-                #     minimumsize = { 0 0 }
-                #     datacontext = "[CharacterListItem.GetCharacter]"
-                #     layoutpolicy_vertical = expanding
-                #     margin_top = 5
-                #     margin_right = 5
-
-                #     expand = {}
-
-                #     hbox = {
-                #         layoutpolicy_horizontal = expanding
-                #         layoutpolicy_vertical = expanding
-
-                #         expand = {}
-
-                #         # Religion
-                #         icon = {
-                #             name = "faith_button"
-                #             size = { 35 35 }
-                #             datacontext = "[Character.GetFaith]"
-                #             tooltipwidget = { faith_tooltip = {} }
-                #             texture = "[Faith.GetIcon]"
-                #         }
-                        
-                #         # Culture
-                #         widget = {
-                #             datacontext = "[Character.GetCulture]"
-                #             size = { 120 24 }
-
-                #             tooltipwidget = {
-                #                 culture_tooltip = {}
-                #             }
-                #             using = tooltip_se
-
-                #             hbox = {
-                #                 layoutpolicy_horizontal = expanding
-                #                 spacing = 3
-                #                 icon = {
-                #                     name = "culture"
-                #                     texture = "gfx/interface/icons/icon_culture.dds"
-                #                     size = { 24 24 }
-                #                 }
-
-                #                 text_multi = {
-                #                     layoutpolicy_horizontal = expanding
-                #                     min_width = 95
-                #                     max_width = 95
-                #                     autoresize = yes
-                #                     text = "CULTURE_LISTS_WINDOW"
-                #                 }
-                #             }
-                #         }
-                #     }
-                # }
-
 		    }   
         }
 
