@@ -260,7 +260,7 @@ types PortraitTypes
             using = portrait_base
             block "portrait_texture"
             {
-                portrait_texture = "[Character.GetCachedPortrait('environment_shoulders', 'camera_shoulders', 'idle', PdxGetWidgetScreenSize(PdxGuiWidget.Self))]"
+                portrait_texture = "[Character.GetAnimatedPortrait('environment_shoulders', 'camera_shoulders', 'idle', PdxGetWidgetScreenSize(PdxGuiWidget.Self))]"
             }
 
             mask = "gfx/portraits/portrait_mask_shoulders.dds"
