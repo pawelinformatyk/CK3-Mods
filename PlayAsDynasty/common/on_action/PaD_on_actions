@@ -1,12 +1,12 @@
 ﻿on_game_start = {
     on_action = {
-        PaD_here_start
+        on_PlayAsDynasty_start
     }
 }
-PaD_here_start = {
+on_PlayAsDynasty_start = {
     effect = {
         set_global_variable = {
-	    name = PaD_is_loaded
+	    name = PlayAsDynasty_is_loaded
 	    value = yes
 	}
     }
