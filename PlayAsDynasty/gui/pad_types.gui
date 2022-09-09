@@ -1,0 +1,291 @@
+types Lists
+{
+    type successor_character_list_item = widget {
+		datacontext = "[CharacterListItem.GetCharacter]"
+
+		hbox = {
+            layoutpolicy_horizontal = expanding
+            layoutpolicy_vertical = expanding
+			spacing = 15
+            
+			successor_portrait_shoulders_cached = {}
+
+            vbox = {
+                margin_left = 20
+                layoutpolicy_vertical = expanding
+                layoutpolicy_horizontal = expanding
+
+                # Name and Skills
+                hbox = {
+                    layoutpolicy_horizontal = expanding
+                    
+                    text_single = {
+                        using = Font_Size_Medium
+                        autoresize = yes
+
+                        text = "[Character.GetNameNoTooltip]"
+                    }
+
+                    expand = {}
+
+                    # Skills
+                    hbox = {
+                        flowcontainer = {
+                            margin_left = 10
+                            margin_right = 20
+                            
+                            background = {
+                                name = "skill_icon_bg"
+                                texture = "gfx/interface/window_character/character_view_skills_bg.dds"
+                                framesize = { 70 26 }
+                                frame = 1
+                            }
+                            
+                            icon = {
+                                name = "skill_icon"
+                                size = { 25 25 }
+                                framesize = { 60 60 }
+                                frame = 1
+                                texture = "gfx/interface/icons/icon_skills.dds"
+                            }
+                            
+                            text_single = {
+                                name = "skill_value"
+                                parentanchor = vcenter
+                                text = "[Character.GetSkill( 'diplomacy' )]"
+                                default_format = "#high"
+                                using = Font_Size_Medium
+                                align = nobaseline
+                            }
+                        }
+                        
+                        flowcontainer = {
+                            margin_left = 10
+                            margin_right = 20
+                            
+                            background = {
+                                name = "skill_icon_bg"
+                                texture = "gfx/interface/window_character/character_view_skills_bg.dds"
+                                framesize = { 70 26 }
+                                frame = 2
+                            }
+                            
+                            icon = {
+                                name = "skill_icon"
+                                size = { 25 25 }
+                                framesize = { 60 60 }
+                                frame = 2
+                                texture = "gfx/interface/icons/icon_skills.dds"
+                            }
+                            
+                            text_single = {
+                                name = "skill_value"
+                                parentanchor = vcenter
+                                text = "[Character.GetSkill( 'martial' )]"
+                                default_format = "#high"
+                                using = Font_Size_Medium
+                                align = nobaseline
+                            }
+                        }
+                        
+                        flowcontainer = {
+                            margin_left = 10
+                            margin_right = 20
+                            
+                            background = {
+                                name = "skill_icon_bg"
+                                texture = "gfx/interface/window_character/character_view_skills_bg.dds"
+                                framesize = { 70 26 }
+                                frame = 3
+                            }
+                            
+                            icon = {
+                                name = "skill_icon"
+                                size = { 25 25 }
+                                framesize = { 60 60 }
+                                frame = 3
+                                texture = "gfx/interface/icons/icon_skills.dds"
+                            }
+                            
+                            text_single = {
+                                name = "skill_value"
+                                parentanchor = vcenter
+                                text = "[Character.GetSkill( 'stewardship' )]"
+                                default_format = "#high"
+                                using = Font_Size_Medium
+                                align = nobaseline
+                            }
+                        }
+                        
+                        flowcontainer = {
+                            margin_left = 10
+                            margin_right = 20
+                            
+                            background = {
+                                name = "skill_icon_bg"
+                                texture = "gfx/interface/window_character/character_view_skills_bg.dds"
+                                framesize = { 70 26 }
+                                frame = 4
+                            }
+                            
+                            icon = {
+                                name = "skill_icon"
+                                size = { 25 25 }
+                                framesize = { 60 60 }
+                                frame = 4
+                                texture = "gfx/interface/icons/icon_skills.dds"
+                            }
+                            
+                            text_single = {
+                                name = "skill_value"
+                                parentanchor = vcenter
+                                text = "[Character.GetSkill( 'intrigue' )]"
+                                default_format = "#high"
+                                using = Font_Size_Medium
+                                align = nobaseline
+                            }
+                        }
+                        
+                        flowcontainer = {
+                            margin_left = 10
+                            margin_right = 20
+                            
+                            background = {
+                                name = "skill_icon_bg"
+                                texture = "gfx/interface/window_character/character_view_skills_bg.dds"
+                                framesize = { 70 26 }
+                                frame = 5
+                            }
+                            
+                            icon = {
+                                name = "skill_icon"
+                                size = { 25 25 }
+                                framesize = { 60 60 }
+                                frame = 5
+                                texture = "gfx/interface/icons/icon_skills.dds"
+                            }
+                            
+                            text_single = {
+                                name = "skill_value"
+                                parentanchor = vcenter
+                                text = "[Character.GetSkill( 'learning' )]"
+                                default_format = "#high"
+                                using = Font_Size_Medium
+                                align = nobaseline
+                            }
+                        }
+                    }
+                }
+                
+                # Culture and religion 
+                hbox = {
+                    layoutpolicy_horizontal = expanding
+                    margin_right = 50
+                   
+                    hbox = {
+                        # Religion
+                        icon = {
+                            name = "faith_button"
+                            size = { 35 35 }
+                            datacontext = "[Character.GetFaith]"
+                            tooltipwidget = { faith_tooltip = {} }
+                            texture = "[Faith.GetIcon]"
+                        }
+
+                        # Culture
+                        widget = {
+                            datacontext = "[Character.GetCulture]"
+                            size = { 35 35 }
+
+                            tooltipwidget = {
+                                culture_tooltip = {}
+                            }
+                            using = tooltip_se
+
+                            hbox = {
+                                layoutpolicy_horizontal = expanding
+                                icon = {
+                                    name = "culture"
+                                    texture = "gfx/interface/icons/icon_culture.dds"
+                                    size = { 35 35 }
+                                }
+
+                                text_multi = {
+                                    layoutpolicy_horizontal = expanding
+                                    autoresize = yes
+                                    text = "CULTURE_LISTS_WINDOW"
+                                }
+                            }
+                        }
+                    }
+                    
+                    expand = {}
+                }
+                
+                button_standard = {
+                    layoutpolicy_horizontal = expanding
+                    text = "Continue as [Character.GetTitledFirstNameNoTooltip], [Character.GetTitleAsNameNoTooltipRegnal  ] of [Character.GetPrimaryTitle.GetNameNoTierNoTooltip]"
+                    
+                    datacontext = "[GetScriptedGui('pad_select_character')]"
+                    onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Character.MakeScope ).AddScope('player_char', GetPlayer.MakeScope ).End)]"
+                    onclick = "[PdxGuiTriggerAllAnimations('ruler_transition_reset')]"
+                    tooltip = "[Character.Custom('HeirMessageInterfaceNonRandom')]"
+                }
+		    }   
+        }
+
+        divider = {
+            parentanchor = bottom|hcenter
+            size = { 100% 6 }
+        }
+	}
+}
+
+types PortraitTypes
+{
+    type successor_portrait_shoulders_cached = widget {
+        size = { 125 160 }
+
+        widget = {
+            size = { 100% 100% }
+            block "portrait_glows"
+            {
+                using = Portrait_Background_Glows
+            }
+        }
+
+        portrait_button = {
+            parentanchor = bottom|hcenter
+            size = { 145 175 }
+            using = portrait_base
+            block "portrait_texture"
+            {
+                portrait_texture = "[Character.GetAnimatedPortrait('environment_shoulders', 'camera_shoulders', 'idle', PdxGetWidgetScreenSize(PdxGuiWidget.Self))]"
+            }
+
+            mask = "gfx/portraits/portrait_mask_shoulders.dds"
+            effectname = "NoHighlight"
+
+            highlight_icon = {
+                name = "prison_bars"
+                visible = "[Character.IsImprisoned]"
+                size = { 100% 100% }
+                effectname = "NoHighlight"
+                texture = "gfx/portraits/portrait_prison_shoulders.dds"
+
+                modify_texture = {
+                    name = "mask"
+                    texture = "gfx/portraits/portrait_mask_shoulders.dds"
+                    spriteType = Corneredstretched
+                    blend_mode = alphamultiply
+                }
+            }
+        }
+
+        coa_realm_small_crown = {
+            visible = "[Character.HasLandedTitles]"
+            parentanchor = bottom|left
+            position = { -5 3 }
+        }
+    }
+}

@@ -18,7 +18,7 @@ window = {
 	state = {
 		name = ruler_transition_reset
 		delay = 0.25
-		on_start = "[GetScriptedGui('clear_dynasty_successors').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+		on_start = "[GetScriptedGui('pad_clear_successors').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 		on_finish = "[SuccessionEventWindow.Close]"
 	}
 
@@ -71,7 +71,7 @@ window = {
 			name = ruler_transition_reset
 			next = reset_position
 			using = Animation_FadeOut_Standard
-			on_start = "[GetScriptedGui('clear_dynasty_successors').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+			on_start = "[GetScriptedGui('pad_clear_successors').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 		}
 
 		state = {
@@ -254,8 +254,8 @@ window = {
 						down = "[SuccessionEventWindow.IsLineageTabOpen]"
 						alwaystransparent = "[SuccessionEventWindow.IsLineageTabOpen]"
 						
-						onclick = "[GetScriptedGui('clear_dynasty_successors').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
-						onclick = "[GetScriptedGui('get_dynasty_successors').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('dead_character', SuccessionEventWindow.GetDeadCharacter.MakeScope ).End )]"
+						onclick = "[GetScriptedGui('pad_clear_successors').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+						onclick = "[GetScriptedGui('pad_get_successors').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('dead_character', SuccessionEventWindow.GetDeadCharacter.MakeScope ).End )]"
 						onclick = "[PdxGuiTriggerAllAnimations('ruler_transition_tab_switch')]"
 
 						using = tooltip_ne
@@ -757,16 +757,16 @@ window = {
 
 								button_standard = {
 									
-									onclick = "[GetScriptedGui('prev_page').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
-									onclick = "[GetScriptedGui('get_dynasty_successors').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('dead_character', SuccessionEventWindow.GetDeadCharacter.MakeScope ).End )]"
+									onclick = "[GetScriptedGui('pad_successors_prev_page').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+									onclick = "[GetScriptedGui('pad_get_successors').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('dead_character', SuccessionEventWindow.GetDeadCharacter.MakeScope ).End )]"
 					
 									text = "Prev Page"
 								}
 								
 								button_standard = {
 									
-									onclick = "[GetScriptedGui('next_page').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
-									onclick = "[GetScriptedGui('get_dynasty_successors').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('dead_character', SuccessionEventWindow.GetDeadCharacter.MakeScope ).End )]"
+									onclick = "[GetScriptedGui('pad_successors_next_page').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+									onclick = "[GetScriptedGui('pad_get_successors').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('dead_character', SuccessionEventWindow.GetDeadCharacter.MakeScope ).End )]"
 					
 									text = "Next Page"
 								}
@@ -783,7 +783,7 @@ window = {
 										vbox = {
 											layoutpolicy_horizontal = expanding
 
-											datamodel = "[GetPlayer.MakeScope.GetList('dynasty_successors')]"
+											datamodel = "[GetPlayer.MakeScope.GetList('pad_successors')]"
 
 											item = {
 												layoutpolicy_vertical = expanding
@@ -840,8 +840,8 @@ window = {
 						name = "someone_else_button"
 						text = "Or as Someone Else?"
 
-						onclick = "[GetScriptedGui('clear_dynasty_successors').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
-						onclick = "[GetScriptedGui('get_dynasty_successors').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('dead_character', SuccessionEventWindow.GetDeadCharacter.MakeScope ).End )]"
+						onclick = "[GetScriptedGui('pad_clear_successors').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+						onclick = "[GetScriptedGui('pad_get_successors').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('dead_character', SuccessionEventWindow.GetDeadCharacter.MakeScope ).End )]"
 						onclick = "[PdxGuiTriggerAllAnimations('ruler_transition_tab_switch')]"
 
 						state = {
@@ -855,7 +855,7 @@ window = {
 						text = "Continue as a Random Dynasty Member"
 						tooltip = "Continue as a random playable dynasty member of [SuccessionEventWindow.GetDeadCharacter.GetDynastyName]."
 						
-						onclick = "[GetScriptedGui('select_random_next_character_from_dynasty').Execute( GuiScope.SetRoot( SuccessionEventWindow.GetDeadCharacter.MakeScope ).AddScope('player_char', GetPlayer.MakeScope ).End)]"
+						onclick = "[GetScriptedGui('pad_select_random_character').Execute( GuiScope.SetRoot( SuccessionEventWindow.GetDeadCharacter.MakeScope ).AddScope('player_char', GetPlayer.MakeScope ).End)]"
 						onclick = "[PdxGuiTriggerAllAnimations('ruler_transition_reset')]"
 
 

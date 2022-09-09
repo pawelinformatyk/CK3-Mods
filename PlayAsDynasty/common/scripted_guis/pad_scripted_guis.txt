@@ -1,0 +1,124 @@
+pad_get_successors  = {
+    
+    saved_scopes = {dead_character}
+
+    effect = {
+        clear_variable_list = pad_successors
+        
+        set_local_variable = {
+            name = right_boundary_dynasty_list
+            value = global_var:left_boundary_dynasty_list 
+        } 
+        change_local_variable = {
+            name = right_boundary_dynasty_list 
+            add = global_var:size_boundary_dynasty_list
+        }
+
+        scope:dead_character.Dynasty = {
+            ordered_dynasty_member = {
+                
+                limit = { 
+                    is_landed = yes 
+                    NOR = {
+                        has_government = republic_government
+                        has_government = theocracy_government
+                    }
+                }
+                
+                order_by = prowess
+                min = global_var:left_boundary_dynasty_list
+                max = local_var:right_boundary_dynasty_list
+                
+                root = {
+                    add_to_variable_list = {
+                        name = pad_successors
+                        target = prev
+                    }
+                }
+            }
+        }
+    }
+}
+
+pad_clear_successors = {
+    effect = {
+        root = {
+            clear_variable_list = pad_successors
+            set_global_variable = { 
+                name = left_boundary_dynasty_list 
+                value = 0
+            }
+            set_global_variable = { 
+                name = size_boundary_dynasty_list 
+                value = 50
+            }
+        }
+    }
+}
+
+pad_successors_next_page = {
+    effect = {
+        root = {
+            if = {
+                limit = {
+                    variable_list_size = {
+                        name = pad_successors
+                        value = global_var:size_boundary_dynasty_list
+                    }
+                }
+                change_global_variable = { 
+                    name = left_boundary_dynasty_list 
+                    add = global_var:size_boundary_dynasty_list
+                }
+            }
+        }
+    }
+}
+
+pad_successors_prev_page = {
+    effect = {
+        root = {
+            if = {
+                limit = {
+                    global_var:left_boundary_dynasty_list >= global_var:size_boundary_dynasty_list
+                }
+                change_global_variable = { 
+                    name = left_boundary_dynasty_list 
+                    subtract = global_var:size_boundary_dynasty_list
+                }
+            }
+        }
+    }
+}
+
+pad_select_character= {
+    saved_scopes = {player_char}
+
+    effect = {
+        scope:player_char = {
+            set_player_character = PREV
+        }
+    }
+}
+
+pad_select_random_character = {
+    saved_scopes = {player_char}
+
+    effect = {
+        root.Dynasty = {
+            random_dynasty_member = {
+                limit = {
+                    is_landed = yes
+                    
+                    NOR = {
+                        has_government = republic_government
+                        has_government = theocracy_government
+                    }
+                }
+                scope:player_char = {
+                    set_player_character = PREV
+                }
+            }
+        }
+    }
+}
