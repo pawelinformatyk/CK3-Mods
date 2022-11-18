@@ -225,11 +225,11 @@ types Lists
                 button_standard = {
                     layoutpolicy_horizontal = expanding
                     text = "Continue as [Character.GetTitledFirstNameNoTooltip], [Character.GetTitleAsNameNoTooltipRegnal  ] of [Character.GetPrimaryTitle.GetNameNoTierNoTooltip]"
-                    
-                    datacontext = "[GetScriptedGui('pad_select_character')]"
-                    onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( Character.MakeScope ).AddScope('player_char', GetPlayer.MakeScope ).End)]"
-                    onclick = "[PdxGuiTriggerAllAnimations('ruler_transition_reset')]"
                     tooltip = "[Character.Custom('HeirMessageInterfaceNonRandom')]"
+                    
+                    datacontext = "[GetScriptedGui('pad_continue_as')]"
+                    onclick = "[ScriptedGui.Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('character', Character.MakeScope ).End)]"
+                    onclick = "[PdxGuiTriggerAllAnimations('ruler_transition_reset')]"
                 }
 		    }   
         }
@@ -287,5 +287,13 @@ types PortraitTypes
             parentanchor = bottom|left
             position = { -5 3 }
         }
+    }
+}
+
+types ButtonIcons
+{
+    type button_pad_tab = button_icon 
+    {
+        texture = "gfx/pad_tab.dds"
     }
 }

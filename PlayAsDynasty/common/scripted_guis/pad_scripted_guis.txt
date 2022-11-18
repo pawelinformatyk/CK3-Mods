@@ -1,22 +1,44 @@
-pad_get_successors  = {
-    
-    saved_scopes = {dead_character}
-
+pad_init = {
     effect = {
-        clear_variable_list = pad_successors
-        
-        set_local_variable = {
-            name = right_boundary_dynasty_list
-            value = global_var:left_boundary_dynasty_list 
-        } 
-        change_local_variable = {
-            name = right_boundary_dynasty_list 
-            add = global_var:size_boundary_dynasty_list
+         root = {
+            clear_variable_list = pad_list
+
+            set_variable = { 
+                name = pad_list_size 
+                value = 2
+            }
+            set_variable = { 
+                name = pad_list_left_boundary 
+                value = 0
+            }
+            set_variable = { 
+                name = pad_list_right_boundary 
+                value = var:pad_list_size
+            }
+        }
+    }   
+}
+
+pad_deinit = {
+    effect = {
+        root = {
+            clear_variable_list = pad_list
+            remove_variable = pad_list_size
+            remove_variable = pad_list_left_boundary
+            remove_variable = pad_list_right_boundary 
+        }
+    }
+}
+
+# Should get dynasty from dead character then I mightb be albe to play after game ends anyway idk. 
+pad_update_successors  = {
+    effect = {
+        root = {
+            clear_variable_list = pad_list
         }
 
-        scope:dead_character.Dynasty = {
+        scope:dynasty = {
             ordered_dynasty_member = {
-                
                 limit = { 
                     is_landed = yes 
                     NOR = {
@@ -26,12 +48,13 @@ pad_get_successors  = {
                 }
                 
                 order_by = prowess
-                min = global_var:left_boundary_dynasty_list
-                max = local_var:right_boundary_dynasty_list
+                min = root.var:pad_list_left_boundary
+                max = root.var:pad_list_right_boundary
+                check_range_bounds = no 
                 
                 root = {
                     add_to_variable_list = {
-                        name = pad_successors
+                        name = pad_list
                         target = prev
                     }
                 }
@@ -40,72 +63,64 @@ pad_get_successors  = {
     }
 }
 
-pad_clear_successors = {
-    effect = {
-        root = {
-            clear_variable_list = pad_successors
-            set_global_variable = { 
-                name = left_boundary_dynasty_list 
-                value = 0
-            }
-            set_global_variable = { 
-                name = size_boundary_dynasty_list 
-                value = 50
-            }
-        }
-    }
-}
-
-pad_successors_next_page = {
+pad_list_next_page = {
     effect = {
         root = {
             if = {
                 limit = {
                     variable_list_size = {
-                        name = pad_successors
-                        value = global_var:size_boundary_dynasty_list
+                        name = pad_list
+                        value = var:pad_list_size
                     }
                 }
-                change_global_variable = { 
-                    name = left_boundary_dynasty_list 
-                    add = global_var:size_boundary_dynasty_list
+
+                set_variable = { 
+                    name = pad_list_left_boundary 
+                    value = var:pad_list_right_boundary
+                }
+                
+                change_variable = { 
+                    name = pad_list_right_boundary 
+                    add = var:pad_list_size
                 }
             }
         }
     }
 }
 
-pad_successors_prev_page = {
+pad_list_prev_page = {
     effect = {
         root = {
             if = {
                 limit = {
-                    global_var:left_boundary_dynasty_list >= global_var:size_boundary_dynasty_list
+                    var:pad_list_left_boundary = {compare_value > 0}
                 }
-                change_global_variable = { 
-                    name = left_boundary_dynasty_list 
-                    subtract = global_var:size_boundary_dynasty_list
+
+                set_variable = { 
+                    name = pad_list_right_boundary
+                    value = var:pad_list_left_boundary
+                }
+                
+                change_variable = { 
+                    name = pad_list_left_boundary 
+                    subtract = var:pad_list_size
                 }
             }
         }
     }
 }
 
-pad_select_character= {
-    saved_scopes = {player_char}
-
+pad_continue_as = {
     effect = {
-        scope:player_char = {
-            set_player_character = PREV
+        root = {
+            set_player_character = scope:character
         }
     }
 }
 
-pad_select_random_character = {
-    saved_scopes = {player_char}
-
+pad_continue_as_random_character = {
     effect = {
-        root.Dynasty = {
+        scope:dynasty = {
             random_dynasty_member = {
                 limit = {
                     is_landed = yes
@@ -115,9 +130,48 @@ pad_select_random_character = {
                         has_government = theocracy_government
                     }
                 }
-                scope:player_char = {
+
+                root = {
                     set_player_character = PREV
                 }
+            }
+        }
+    }
+}
+
+# TODO Flag 
+pad_set_tab_open_after_transition = {
+    effect = {
+        root = {
+            set_variable = {
+                name = pad_tab_open_after_transition
+            }
+        }   
+    }   
+}
+
+pad_on_tab_transition_ended = {
+    effect = {
+        root = {
+            remove_variable = pad_tab_open_after_transition
+        }   
+    }   
+}
+
+pad_on_tab_transition_started = {
+    effect = {
+        root = {
+            if = {
+                limit = {
+                   exists = var:pad_tab_open_after_transition
+                }
+
+                set_variable = {
+                    name = pad_tab_opened
+                }
+            }
+            else = {
+                remove_variable = pad_tab_opened
             }
         }
     }
