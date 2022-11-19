@@ -12,14 +12,14 @@ window = {
 	state = {
 		name =_show
 		on_start = "[GetVariableSystem.Clear( 'ruler_transition_remove_fade')]"
+		on_start = "[GetScriptedGui('pad_init').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 		on_finish = "[PdxGuiTriggerAllAnimations('ruler_transition_appear')]"
-		on_finish = "[GetScriptedGui('pad_init').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 	}
 
 	state = {
 		name = ruler_transition_reset
 		delay = 0.25
-		on_finish = "[GetScriptedGui('pad_init').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+		on_finish = "[GetScriptedGui('pad_deinit').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
 		on_finish = "[SuccessionEventWindow.Close]"
 	} 
 
@@ -273,11 +273,12 @@ window = {
 					 
 					### Pad button
 					button_tab_round = {
+						visible =  "[SuccessionEventWindow.GetPlayerHeir.IsValid]"
 						down = "[GetPlayer.MakeScope.Var('pad_tab_opened').IsSet]"
 						alwaystransparent = "[GetPlayer.MakeScope.Var('pad_tab_opened').IsSet]"
- 
-						onclick = "[GetScriptedGui('pad_update_successors').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
+
 						onclick = "[GetScriptedGui('pad_set_tab_open_after_transition').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+						onclick = "[GetScriptedGui('pad_update_successors').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('dynasty', SuccessionEventWindow.GetDeadCharacter.GetDynasty.MakeScope ).End)]"
 						onclick = "[PdxGuiTriggerAllAnimations('ruler_transition_tab_switch')]"
 
 						using = tooltip_ne
@@ -759,83 +760,7 @@ window = {
 							}
 						}
 
-						### PAD 
-						vbox = {
-							visible =  "[GetPlayer.MakeScope.Var('pad_tab_opened').IsSet]"
-							spacing = 3
-
-							hbox = {
-								margin_top = 25
-								spacing = 15
-
-								text_single = {
-									text = "[GetPlayer.MakeScope.Var('pad_list_size').GetValue]"
-								}
-								
-								text_single = {
-									text = "[GetPlayer.MakeScope.Var('pad_list_left_boundary').GetValue]"
-								}
-								
-								text_single = {
-									text = "[GetPlayer.MakeScope.Var('pad_list_right_boundary').GetValue]"
-								}
-								
-								button_standard = {
-									
-									onclick = "[GetScriptedGui('pad_list_prev_page').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
-									onclick = "[GetScriptedGui('pad_update_successors').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-					
-									text = "Prev Page"
-								}
-								
-								button_standard = {
-									
-									onclick = "[GetScriptedGui('pad_list_next_page').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
-									onclick = "[GetScriptedGui('pad_update_successors').Execute(GuiScope.SetRoot(GetPlayer.MakeScope).End)]"
-					
-									text = "Next Page"
-								}
-							}	 
-
-							scrollbox = {
-								name = "characters_scroll_area"
-								layoutpolicy_vertical = expanding
-								layoutpolicy_horizontal = expanding
-
-								blockoverride "scrollbox_content" {
-
-									block "container_implementation" {
-										vbox = {
-											layoutpolicy_horizontal = expanding
-
-											datamodel = "[GetPlayer.MakeScope.GetList('pad_list')]"
- 
-											item = {
-												layoutpolicy_vertical = expanding
-												layoutpolicy_horizontal = expanding
-
-												successor_character_list_item = {
-													layoutpolicy_vertical = expanding
-													layoutpolicy_horizontal = expanding
-
-													datacontext = "[Scope.GetCharacter]"
-													block "item_size" {
-														size = { 0 160 }
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-
-							hbox = {
-								layoutpolicy_horizontal = growing
-								margin = { 15 5 }
-								margin_bottom = 8
-							}
-						}
-
+						### LINEAGE 
 						scrollarea = {
 							visible = "[Not(GetPlayer.MakeScope.Var('pad_tab_opened').IsSet)]"
 							size = { 100% 100% }
@@ -961,6 +886,71 @@ window = {
 								}
 							}
 						}
+						
+						### PAD 
+						vbox = {
+							visible =  "[GetPlayer.MakeScope.Var('pad_tab_opened').IsSet]"
+							spacing = 3
+
+							hbox = {
+								margin_top = 25
+								spacing = 15
+								
+								button_standard = {
+									
+									onclick = "[GetScriptedGui('pad_list_prev_page').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+									onclick = "[GetScriptedGui('pad_update_successors').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('dynasty', SuccessionEventWindow.GetDeadCharacter.GetDynasty.MakeScope ).End)]"
+					
+									text = "Prev Page"
+								}
+								
+								button_standard = {
+									
+									onclick = "[GetScriptedGui('pad_list_next_page').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).End )]"
+									onclick = "[GetScriptedGui('pad_update_successors').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('dynasty', SuccessionEventWindow.GetDeadCharacter.GetDynasty.MakeScope ).End)]"
+					
+									text = "Next Page"
+								}
+							}	 
+
+							scrollbox = {
+								name = "characters_scroll_area"
+								layoutpolicy_vertical = expanding
+								layoutpolicy_horizontal = expanding
+
+								blockoverride "scrollbox_content" {
+
+									block "container_implementation" {
+										vbox = {
+											layoutpolicy_horizontal = expanding
+
+											datamodel = "[GetPlayer.MakeScope.GetList('pad_list')]"
+ 
+											item = {
+												layoutpolicy_vertical = expanding
+												layoutpolicy_horizontal = expanding
+
+												successor_character_list_item = {
+													layoutpolicy_vertical = expanding
+													layoutpolicy_horizontal = expanding
+
+													datacontext = "[Scope.GetCharacter]"
+													block "item_size" {
+														size = { 0 160 }
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+
+							hbox = {
+								layoutpolicy_horizontal = growing
+								margin = { 15 5 }
+								margin_bottom = 8
+							}
+						}
 					}
 				}
 			}
@@ -987,6 +977,8 @@ window = {
 					}
 
 					button_standard = {
+						visible = "[SuccessionEventWindow.GetPlayerHeir.IsValid]"
+						
 						name = "someone_else_button"
 						text = "Or as Someone Else?"
 
@@ -1002,12 +994,13 @@ window = {
 					}
 
 					button_standard = {
-						text = "Continue as a Random Dynasty Member"
+						visible = "[SuccessionEventWindow.GetPlayerHeir.IsValid]"
+
+						text = "As a Random Dynasty Member"
 						tooltip = "Continue as a random playable dynasty member of [SuccessionEventWindow.GetDeadCharacter.GetDynastyName]."
 						
 						onclick = "[GetScriptedGui('pad_continue_as_random_character').Execute( GuiScope.SetRoot( GetPlayer.MakeScope ).AddScope('dynasty', SuccessionEventWindow.GetDeadCharacter.GetDynasty.MakeScope ).End)]"
 						onclick = "[PdxGuiTriggerAllAnimations('ruler_transition_reset')]"
-
 
 						min_width = 260
 					}

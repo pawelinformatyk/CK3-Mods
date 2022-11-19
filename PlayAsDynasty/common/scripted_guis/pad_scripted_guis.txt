@@ -5,7 +5,7 @@ pad_init = {
 
             set_variable = { 
                 name = pad_list_size 
-                value = 2
+                value = 49
             }
             set_variable = { 
                 name = pad_list_left_boundary 
@@ -25,7 +25,9 @@ pad_deinit = {
             clear_variable_list = pad_list
             remove_variable = pad_list_size
             remove_variable = pad_list_left_boundary
-            remove_variable = pad_list_right_boundary 
+            remove_variable = pad_list_right_boundary
+            remove_variable = pad_tab_open_after_transition 
+            remove_variable = pad_tab_opened
         }
     }
 }
@@ -67,13 +69,13 @@ pad_list_next_page = {
     effect = {
         root = {
             if = {
-                limit = {
+                limit = {   
                     variable_list_size = {
                         name = pad_list
                         value = var:pad_list_size
                     }
                 }
-
+                
                 set_variable = { 
                     name = pad_list_left_boundary 
                     value = var:pad_list_right_boundary
