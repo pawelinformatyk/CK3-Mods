@@ -15,7 +15,7 @@ types Lists
                 layoutpolicy_vertical = expanding
                 layoutpolicy_horizontal = expanding
 
-                # Name and Skills
+                # Name and skills
                 hbox = {
                     layoutpolicy_horizontal = expanding
                     
@@ -51,11 +51,12 @@ types Lists
                             
                             text_single = {
                                 name = "skill_value"
-                                parentanchor = vcenter
                                 text = "[Character.GetSkill( 'diplomacy' )]"
+                                parentanchor = center
                                 default_format = "#high"
                                 using = Font_Size_Medium
                                 align = nobaseline
+                                minimumsize = { 25 30 }
                             }
                         }
                         
@@ -80,11 +81,12 @@ types Lists
                             
                             text_single = {
                                 name = "skill_value"
-                                parentanchor = vcenter
                                 text = "[Character.GetSkill( 'martial' )]"
+                                parentanchor = center
                                 default_format = "#high"
                                 using = Font_Size_Medium
                                 align = nobaseline
+                                minimumsize = { 25 30 }
                             }
                         }
                         
@@ -109,11 +111,12 @@ types Lists
                             
                             text_single = {
                                 name = "skill_value"
-                                parentanchor = vcenter
                                 text = "[Character.GetSkill( 'stewardship' )]"
+                                parentanchor = center
                                 default_format = "#high"
                                 using = Font_Size_Medium
                                 align = nobaseline
+                                minimumsize = { 25 30 }
                             }
                         }
                         
@@ -138,11 +141,12 @@ types Lists
                             
                             text_single = {
                                 name = "skill_value"
-                                parentanchor = vcenter
                                 text = "[Character.GetSkill( 'intrigue' )]"
+                                parentanchor = center
                                 default_format = "#high"
                                 using = Font_Size_Medium
                                 align = nobaseline
+                                minimumsize = { 25 30 }
                             }
                         }
                         
@@ -167,20 +171,20 @@ types Lists
                             
                             text_single = {
                                 name = "skill_value"
-                                parentanchor = vcenter
                                 text = "[Character.GetSkill( 'learning' )]"
+                                parentanchor = center
                                 default_format = "#high"
                                 using = Font_Size_Medium
                                 align = nobaseline
+                                minimumsize = { 25 30 }
                             }
                         }
                     }
                 }
                 
-                # Culture and religion 
+                # Culture, religion and traits 
                 hbox = {
                     layoutpolicy_horizontal = expanding
-                    margin_right = 50
                    
                     hbox = {
                         # Religion
@@ -220,6 +224,22 @@ types Lists
                     }
                     
                     expand = {}
+
+                    #flowcontainer = {
+                    #    datamodel = "[GetTraits]"
+                    #    ignoreinvisible = yes
+                    #    
+                    #    item = {
+                    #        icon_trait = {
+                    #            visible = "[Character.HasTrait(Trait.Self)]"
+                    #        
+                    #            blockoverride "icon_size"
+                    #            {
+                    #                size = { 45 45 }
+                    #            }
+                    #        }
+                    #    }
+                    #}
                 }
                 
                 button_standard = {

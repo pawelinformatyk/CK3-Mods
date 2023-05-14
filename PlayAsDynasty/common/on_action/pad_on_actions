@@ -1,0 +1,13 @@
+﻿on_game_start = {
+    on_action = {
+        on_PlayAsDynasty_start
+    }
+}
+on_PlayAsDynasty_start = {
+    effect = {
+        set_global_variable = {
+	    name = PlayAsDynasty_is_loaded
+	    value = yes
+	}
+    }
+}

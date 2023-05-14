@@ -5,5 +5,5 @@ tags={
 	"Utilities"
 }
 name="Play as Dynasty"
-supported_version="1.*"
+supported_version="1.9.*"
 remote_file_id="2586140392"

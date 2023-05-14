@@ -1,4 +1,4 @@
-pad_init = {
+﻿pad_init = {
     effect = {
          root = {
             clear_variable_list = pad_list
@@ -94,8 +94,8 @@ pad_list_prev_page = {
     effect = {
         root = {
             if = {
-                limit = {
-                    var:pad_list_left_boundary = {compare_value > 0}
+                limit = {   
+                    var:pad_list_left_boundary > 0
                 }
 
                 set_variable = { 
@@ -141,7 +141,6 @@ pad_continue_as_random_character = {
     }
 }
 
-# TODO Flag 
 pad_set_tab_open_after_transition = {
     effect = {
         root = {
